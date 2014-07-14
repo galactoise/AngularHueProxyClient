@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript" src="angular.min.js"></script>
+<script type="text/javascript" src="hue-proxy-client.js"></script>
+<script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+
+<div ng-controller="TestController as test">
+<ul>
+	<li ng-repeat="light in test.lights">
+		<h4>Name: {{light.name}}</h4>
+		<h4 ng-show="{{light.state != null}}">State: {{light.state}}</h4>
+	</li>
+</ul>
+
+<form ng-controller="hueProxyController as hueProxy" ng-submit="hueProxy.getLight2(test.lights)">
+	<input type="submit" value="submit"/>
+</form>
+
+<form ng-submit="test.describeLights()">
+	<input type="submit" value="Describe lights"/>
+</form>
+</div>
+</body>
+</html>
