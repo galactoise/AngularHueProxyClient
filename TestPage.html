@@ -24,6 +24,13 @@
 <form ng-submit="test.describeLights()">
 	<input type="submit" value="Describe lights"/>
 </form>
+<form ng-submit="test.triggerService(2)">
+	<input type="submit" value="Trigger Service"/>
+</form>
+
+<section ng-show="test.getMostRecentLight() != null">
+	Recent light: {{test.getMostRecentLight();}}
+</section>
 </div>
 </body>
 </html>
