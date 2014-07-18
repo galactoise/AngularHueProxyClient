@@ -11,26 +11,20 @@
 
 <div ng-controller="TestController as test">
 <ul>
-	<li ng-repeat="light in test.lights">
+	<li ng-repeat="light in test.getLights()">
 		<h4>Name: {{light.name}}</h4>
-		<h4 ng-show="{{light.state != null}}">State: {{light.state}}</h4>
+		<h4 ng-show="test.getStateFromLight(light)">State: {{light.state}}</h4>
 	</li>
 </ul>
+<label for="lightId_input">Light ID:</label>
+<input type="text" id="lightId_input" ng-model="test.lightId"></input>
 
-<form ng-controller="hueProxyController as hueProxy" ng-submit="hueProxy.getLight2(test.lights)">
-	<input type="submit" value="submit"/>
+<form ng-submit="test.triggerService(test.lightId)">
+	<input type="submit" value="Retrieve light"/>
 </form>
-
-<form ng-submit="test.describeLights()">
-	<input type="submit" value="Describe lights"/>
+<form ng-submit="test.getLights()">
+	<input type="submit" value="Get lights"/>
 </form>
-<form ng-submit="test.triggerService(2)">
-	<input type="submit" value="Trigger Service"/>
-</form>
-
-<section ng-show="test.getMostRecentLight() != null">
-	Recent light: {{test.getMostRecentLight();}}
-</section>
 </div>
 </body>
 </html>
