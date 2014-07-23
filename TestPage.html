@@ -11,7 +11,7 @@
 
 <div ng-controller="TestController as test">
 <ul>
-	<li ng-repeat="light in test.getLights()">
+	<li ng-repeat="light in test.getLights()" ng-show="light != null">
 		<h4>Name: {{light.name}}</h4>
 		<h4 ng-show="test.getStateFromLight(light)">State: {{light.state}}</h4>
 	</li>
