@@ -1,28 +1,19 @@
 (function(){
-//	var serviceUrl = "http://192.168.1.252/api/newdeveloper"; //Direct-to-Hue
 	var serviceUrl = "http://127.0.0.1:9080/HueProxy/rest"; //HueProxy
 	var app = angular.module('testApp',['hueProxyClient']);
 	app.controller('TestController',['$log','$scope','hueProxyClientService',function($log, $scope, hueProxyClientService){
-		$scope.lights = null;
 		
+		//initialize hueProxyClient
 		hueProxyClientService.setServiceUri(serviceUrl);
-		
-		hueProxyClientService.getLights().success(function(data){
-			
-			/**
-			 * This is a stupid hack to convert between direct hue response, and proxy response
-			 * It should be removed once hue-proxy-client reliably talks only to the proxy
-			 * When it is removed, references by light id will also need to be changed to be id - 1
-			 */
-			if(data instanceof Array){
-				data.unshift(null);
-			}
-			
-			$scope.lights = data;
-		});
+				
+		this.getLightsList = function(){
+			return $scope.lights;
+		};
 		
 		this.getLights = function(){
-			return $scope.lights;
+			hueProxyClientService.getLights().success(function(data){				
+				$scope.lights = data;
+			});
 		};
 		
 		this.getStateFromLight = function(lightObject){
@@ -30,12 +21,39 @@
 			return lightObject.state;
 		};
 		
-		//really need to use $scope to store data that will be auto-updated
-		this.triggerService = function(lightId){
+		this.getLightByLightId = function(lightId){
 			hueProxyClientService.getLightById(lightId).success(function(data){
-				$scope.lights[lightId] = data;
+				$scope.lights[lightId - 1] = data;
 			});
-			
 		};
+		
+		this.updateLightByLightId = function(lightId){
+			var state = $scope.lights[lightId - 1].state;
+			hueProxyClientService.updateLightById(lightId, state).success(function(data){
+				$log.log("Successful update!");
+//				$scope.lights[lightId - 1] = data;
+			}).error(function(data){
+				$log.log("Failed to update!");
+//				$scope.lights[lightId - 1] = data;
+			});
+		};
+		
+		this.toggleLightByLightId = function(lightId){
+			hueProxyClientService.toggleLightById(lightId).success(function(data){
+				console.log("Successfully toggled light.");
+			}).error(function(data){
+				console.log("Error: " + data);
+			});
+		};
+		
+		this.strobeLightByLightId = function(lightId){
+			hueProxyClientService.strobeLightById(lightId).success(function(data){
+				console.log("Successfully strobed light.");
+			}).error(function(data){
+				console.log("Error: " + data);
+			});
+		};
+
+		this.getLights();
 	}]);
 })();

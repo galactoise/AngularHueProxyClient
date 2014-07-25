@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>Hue Lights Controller Page</title>
+<script type="text/javascript" src="angular.min.js"></script>
+<script type="text/javascript" src="hue-proxy-client.js"></script>
+<script type="text/javascript" src="app.js"></script>
+<link rel="stylesheet" href="app.css" />
+</head>
+<body>
+
+	<div ng-controller="TestController as test">
+		<ul>
+			<li ng-repeat="light in test.getLightsList()"
+				ng-show="light != null">
+				<form name="testForm" novalidate>
+					<h4>ID: {{light.id}}&nbsp;&nbsp;&nbsp;
+						Name: <input type="text" value="{{light.name}}" />
+						<input type="button" value="Get State" ng-click="test.getLightByLightId(light.id);" />
+						<input type="button" value="Update State" ng-click="test.updateLightByLightId(light.id);" ng-disabled="!testForm.$dirty"/>
+						<input type="button" value="Toggle Power" ng-click="test.toggleLightByLightId(light.id);" />
+						<input type="button" value="Strobe" ng-click="test.strobeLightByLightId(light.id);" />
+					</h4>
+					<h4 ng-show="light.state != null">
+						State:
+						<ul name="testFormState">
+							<li>On: <input type="text" value="{{light.state.on}}"
+								ng-model="light.state.on" /></li>
+							<li>Reachable: <input type="text"
+								value="{{light.state.reachable}}"
+								ng-model="light.state.reachable" /></li>
+							<li>Hue: <input type="number" value="{{light.state.hue}}"
+								ng-model="light.state.hue" /></li>
+							<li>Brightness: <input type="text"
+								value="{{light.state.brightness}}"
+								ng-model="light.state.brightness" /></li>
+							<li>Saturation: <input type="text"
+								value="{{light.state.saturation}}"
+								ng-model="light.state.saturation" /></li>
+							<li>XY: <input type="text" value="{{light.state.xy}}"
+								ng-model="light.state.xy" /></li>
+							<li>ColorTemperature: <input type="text"
+								value="{{light.state.colorTemperature}}"
+								ng-model="light.state.colorTemperature" /></li>
+							<li>ColorMode: <input type="text"
+								value="{{light.state.colorMode}}"
+								ng-model="light.state.colorMOde" /></li>
+							<li>AlertMode: <input type="text"
+								value="{{light.state.alertMode}}"
+								ng-model="light.state.alertMode" /></li>
+							<li>Effect: <input type="text"
+								value="{{light.state.effect}}" ng-model="light.state.effect" /></li>
+						</ul>
+					</h4>
+					
+				</form>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
