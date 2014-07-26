@@ -23,13 +23,13 @@
 		
 		this.getLightByLightId = function(lightId){
 			hueProxyClientService.getLightById(lightId).success(function(data){
-				$scope.lights[lightId - 1] = data;
+				$scope.lights[lightId] = data;
 			});
 		};
 		
 		this.updateLightByLightId = function(lightId){
-			var state = $scope.lights[lightId - 1].state;
-			hueProxyClientService.updateLightById(lightId, state).success(function(data){
+			var light = $scope.lights[lightId];
+			hueProxyClientService.updateLightById(lightId, light).success(function(data){
 				$log.log("Successful update!");
 //				$scope.lights[lightId - 1] = data;
 			}).error(function(data){

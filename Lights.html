@@ -25,11 +25,10 @@
 					<h4 ng-show="light.state != null">
 						State:
 						<ul name="testFormState">
+							<li>Reachable: <input type="text"
+								value="{{light.state.reachable}}" ng-disabled="true"/></li>
 							<li>On: <input type="text" value="{{light.state.on}}"
 								ng-model="light.state.on" /></li>
-							<li>Reachable: <input type="text"
-								value="{{light.state.reachable}}"
-								ng-model="light.state.reachable" /></li>
 							<li>Hue: <input type="number" value="{{light.state.hue}}"
 								ng-model="light.state.hue" /></li>
 							<li>Brightness: <input type="text"
@@ -53,7 +52,6 @@
 								value="{{light.state.effect}}" ng-model="light.state.effect" /></li>
 						</ul>
 					</h4>
-					
 				</form>
 			</li>
 		</ul>
