@@ -16,7 +16,7 @@
 				ng-show="light != null">
 				<form name="testForm" novalidate>
 					<h4>ID: {{light.id}}&nbsp;&nbsp;&nbsp;
-						Name: <input type="text" value="{{light.name}}" />
+						Name: <input type="text" value="{{light.name}}" ng-model="light.name"/>
 						<input type="button" value="Get State" ng-click="test.getLightByLightId(light.id);" />
 						<input type="button" value="Update State" ng-click="test.updateLightByLightId(light.id);" ng-disabled="!testForm.$dirty"/>
 						<input type="button" value="Toggle Power" ng-click="test.toggleLightByLightId(light.id);" />
@@ -32,22 +32,24 @@
 							<li>Hue: <input type="number" value="{{light.state.hue}}"
 								ng-model="light.state.hue" /></li>
 							<li>Brightness: <input type="text"
-								value="{{light.state.brightness}}"
-								ng-model="light.state.brightness" /></li>
+								value="{{light.state.bri}}"
+								ng-model="light.state.bri" /></li>
 							<li>Saturation: <input type="text"
-								value="{{light.state.saturation}}"
-								ng-model="light.state.saturation" /></li>
-							<li>XY: <input type="text" value="{{light.state.xy}}"
-								ng-model="light.state.xy" /></li>
+								value="{{light.state.sat}}"
+								ng-model="light.state.sat" /></li>
+							<li>XY: <input type="text" value="{{light.state.xy[0]}}"
+								ng-model="light.state.xy[0]" />
+								<input type="text" value="{{light.state.xy[1]}}"
+								ng-model="light.state.xy[1]" /></li>
 							<li>ColorTemperature: <input type="text"
-								value="{{light.state.colorTemperature}}"
-								ng-model="light.state.colorTemperature" /></li>
+								value="{{light.state.ct}}"
+								ng-model="light.state.ct" /></li>
 							<li>ColorMode: <input type="text"
-								value="{{light.state.colorMode}}"
-								ng-model="light.state.colorMOde" /></li>
+								value="{{light.state.colormode}}"
+								ng-model="light.state.colormode" /></li>
 							<li>AlertMode: <input type="text"
-								value="{{light.state.alertMode}}"
-								ng-model="light.state.alertMode" /></li>
+								value="{{light.state.alert}}"
+								ng-model="light.state.alert" /></li>
 							<li>Effect: <input type="text"
 								value="{{light.state.effect}}" ng-model="light.state.effect" /></li>
 						</ul>
@@ -55,6 +57,9 @@
 				</form>
 			</li>
 		</ul>
+					<input type="color" name="colorPicker" ng-model="test.colorPicker"/>
+					<input type="button" ng-click="test.convertRGBToHSL(test.colorPicker)" value="Convert Color to HSL" />
+					<input type="button" ng-click="test.convertRGBToLowerCaseXY(test.colorPicker)" value="Convert Color to XY" />
 	</div>
 </body>
 </html>
