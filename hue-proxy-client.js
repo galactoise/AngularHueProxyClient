@@ -9,9 +9,13 @@
 		 * List of endpoints exposed by the API
 		 */
 		var LIGHTS_PATH = "/lights";
+		var V2_LIGHTS_PATH = "/v2/lights";
 		var LIGHT_BY_ID_PATH = "/lights/%s";
+		var V2_LIGHT_BY_ID_PATH = "/v2/lights/%s";
 		var TOGGLE_LIGHT_BY_ID_PATH = "/lights/%s/togglePower";
+		var V2_TOGGLE_LIGHT_BY_ID_PATH = "/v2/lights/%s/togglePower";
 		var STROBE_LIGHT_BY_ID_PATH = "/lights/%s/ravetime";
+		var V2_STROBE_LIGHT_BY_ID_PATH = "/v2/lights/%s/ravetime";
 		
 		var serviceUri = null;
 		
@@ -25,27 +29,27 @@
 		
 		var getLights = function(){
 			$log.log("Getting basic lights info...");
-			return $http.get(serviceUri + LIGHTS_PATH);
+			return $http.get(serviceUri + V2_LIGHTS_PATH);
 		};
 		var getLightById = function(id){
-			var url = serviceUri + LIGHT_BY_ID_PATH.replace(/%s/g,id);
+			var url = serviceUri + V2_LIGHT_BY_ID_PATH.replace(/%s/g,id);
 			
 			$log.log("Getting light with id = '" + id + "'...");
 			return $http.get(url);
 		};
 		
 		var updateLightById = function(id, state){
-			var url = serviceUri + LIGHT_BY_ID_PATH.replace(/%s/g,id);
+			var url = serviceUri + V2_LIGHT_BY_ID_PATH.replace(/%s/g,id);
 			$log.log("Updating light with id = '" + id + "'...");
 			$log.log("Url: " + url);
-			return $http.post(url, state);
+			return $http.put(url, state);
 		};
 		
 		/**
 		 * Toggle (turn on or off) a light by its lightId
 		 */
 		var toggleLightById = function(id){
-			var url = serviceUri + TOGGLE_LIGHT_BY_ID_PATH.replace(/%s/g,id);
+			var url = serviceUri + V2_TOGGLE_LIGHT_BY_ID_PATH.replace(/%s/g,id);
 			$log.log("Toggling on/off state of light with id = '" + id + "'...");
 			return $http.put(url);
 		};
@@ -54,7 +58,7 @@
 		 * Trigger strobe functionality for a light by its lightId
 		 */
 		var strobeLightById = function(id){
-			var url = serviceUri + STROBE_LIGHT_BY_ID_PATH.replace(/%s/g,id);
+			var url = serviceUri + V2_STROBE_LIGHT_BY_ID_PATH.replace(/%s/g,id);
 			$log.log("Toggling on/off state of light with id = '" + id + "'...");
 			return $http.put(url);
 		};
